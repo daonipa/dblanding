@@ -3,187 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>프리미엄 3대 암 치료비 플랜</title>
-    <meta name="description" content="진단비를 넘어 치료비까지. 내 돈 안 들이고 최상위 치료를 받는 프리미엄 3-SET 치료비 플랜을 확인하세요.">
-    
-    <!-- Fonts -->
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <title>암 치료 보험 - ConnectionLabs</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Pretendard Font -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <style>
+        body { font-family: 'Pretendard', sans-serif; }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 120s linear infinite;
+        }
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        .animate-scroll-up {
+            animation: scrollUp 180s linear infinite;
+        }
+    </style>
 </head>
 <body>
+    <div id="root"></div>
 
-    <!-- Section 1. Main Hero (Hook) -->
-    <header id="hero" class="hero-section">
-        <div class="hero-bg-overlay"></div>
-        <div class="container hero-content scroll-reveal">
-            <span class="hero-badge">PREMIUM PLAN</span>
-            <h1 class="hero-title">
-                암 치료비 1억 시대,<br>
-                <span class="text-gradient">돈 걱정 없이</span><br>
-                오직 치료에만 집중하세요
-            </h1>
-            <p class="hero-desc">
-                중입자 치료, 표적 항암, 로봇 수술...<br>
-                비용 부담 때문에 망설였던 최신 치료,<br>
-                <strong>[프리미엄 3-SET 플랜]</strong>으로 해결해 드립니다.
-            </p>
-            <div class="hero-btn-group">
-                <a href="#consultation" class="btn btn-primary cta-btn pulse-animation">내 치료비 한도 확인하기 <i class="fa-solid fa-chevron-right"></i></a>
-            </div>
-        </div>
-        <div class="scroll-down">
-            <span>Scroll</span>
-            <i class="fa-solid fa-chevron-down"></i>
-        </div>
-    </header>
+    <script type="text/babel" data-type="module">
+        import React, { useState } from 'https://esm.sh/react@18.2.0';
+        import ReactDOM from 'https://esm.sh/react-dom@18.2.0/client';
+        import { Shield, Activity, Microscope, CheckCircle, Phone, Menu } from 'https://esm.sh/lucide-react@0.263.1';
 
-    <!-- Section 2. Agitation -->
-    <section id="agitation" class="agitation-section">
-        <div class="container">
-            <div class="section-header text-center scroll-reveal">
-                <h2 class="section-title">암은 죽는 병이 아니라<br><span class="highlight-navy">'돈'이 드는 병</span>입니다</h2>
-                <div class="title-underline"></div>
-            </div>
-            
-            <div class="card-grid">
-                <div class="card fact-card scroll-reveal" data-delay="100">
-                    <div class="card-icon-wrapper">
-                        <i class="fa-solid fa-heart-pulse"></i>
-                    </div>
-                    <div class="card-body text-center">
-                        <h3>생존율 70% 시대</h3>
-                        <p>이제 암은 불치병이 아닙니다.<br>치료하며 <strong>'살아가는'</strong> 병입니다.</p>
-                    </div>
+        const LandingPage = () => {
+          const [formData, setFormData] = useState({ name: '', birth: '', gender: 'male', phone: '' });
+          
+          // Random Data Generation for Ticker
+          const [applicants] = useState(() => {
+              const surnames = ["김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안", "송", "류", "전", "홍", "고", "문", "양", "손", "배", "백", "허", "유", "남"];
+              const items = [];
+              for(let i = 0; i < 50; i++) {
+                  const msAgo = Math.floor(Math.random() * 10 * 24 * 60 * 60 * 1000);
+                  let timeDisplay;
+                  const minsAgo = Math.floor(msAgo / 60000);
+                  if (minsAgo < 60) timeDisplay = `${minsAgo}분 전`;
+                  else if (minsAgo < 24 * 60) timeDisplay = `${Math.floor(minsAgo / 60)}시간 전`;
+                  else timeDisplay = `${Math.floor(minsAgo / (60 * 24))}일 전`;
+
+                  items.push({
+                    name: surnames[Math.floor(Math.random() * surnames.length)] + "**",
+                    age: Math.floor(Math.random() * (65 - 30) + 30),
+                    phone: `010-****-${Math.floor(1000 + Math.random() * 9000)}`,
+                    time: timeDisplay,
+                    rawTime: msAgo
+                  });
+              }
+              return items.sort((a, b) => a.rawTime - b.rawTime);
+          });
+
+          const handleSubmit = (e) => {
+            e.preventDefault();
+            alert("상담 신청이 접수되었습니다. 곧 분석 결과를 보내드립니다.");
+          };
+
+          return (
+            <div className="min-h-screen bg-white font-sans text-gray-800">
+              {/* 1. Header */}
+              <header className="fixed top-0 w-full bg-white/95 backdrop-blur z-50 border-b border-gray-100">
+                <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+                  <div className="font-bold text-lg text-slate-400 bg-slate-100 px-3 py-1 rounded">로고들어갈위치</div>
+                  <button onClick={() => document.getElementById('consultation-form').scrollIntoView({ behavior: 'smooth' })} className="bg-orange-600 text-white font-bold px-5 py-2.5 rounded-lg text-sm md:text-base hover:bg-orange-700 transition shadow-lg shadow-orange-500/30">
+                    상담신청
+                  </button>
                 </div>
-                <div class="card fact-card scroll-reveal" data-delay="300">
-                    <div class="card-icon-wrapper warning">
-                        <i class="fa-solid fa-file-invoice-dollar"></i>
-                    </div>
-                    <div class="card-body text-center">
-                        <h3>중입자 치료 5천만원?</h3>
-                        <p>효과는 좋지만 비싼 최신 치료,<br><strong>실비와 진단비로는 부족</strong>합니다.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="agitation-message scroll-reveal">
-                <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
-                <p class="message-text">
-                    "치료비 걱정 때문에<br>
-                    <span class="highlight-gradient">최선의 치료</span>를 포기하시겠습니까?"
-                </p>
-            </div>
-        </div>
-    </section>
+              </header>
 
-    <!-- Section 3. Solution -->
-    <section id="solution" class="solution-section">
-        <div class="container">
-            <div class="section-header text-center scroll-reveal">
-                <span class="section-subtitle">OUR SOLUTION</span>
-                <h2 class="section-title">모든 치료비를 커버합니다</h2>
-                <p class="section-desc">진단비는 생활비로, 치료비는 보험사 돈으로</p>
-            </div>
-            
-            <div class="solution-grid">
-                <div class="solution-item scroll-reveal" data-delay="100">
-                    <div class="step-number">01</div>
-                    <div class="solution-icon">
-                        <i class="fa-solid fa-crosshairs"></i>
+              {/* 2. Hero Section (Calculator) */}
+              <section className="pt-24 pb-12 md:py-32 bg-slate-900 text-white relative">
+                <div className="container mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+                  {/* Text */}
+                  <div className="z-10">
+                    <span className="inline-block px-3 py-1 bg-orange-500/20 text-orange-400 rounded-full text-sm md:text-base font-bold mb-3">꿈의 암 치료기 도입</span>
+                    <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
+                      중입자 치료 5천만원,<br /><span className="text-orange-500">내 보험으로 해결될까요?</span>
+                    </h1>
+                    <p className="text-slate-300 mb-8 text-base md:text-xl font-medium">수술 없는 암 치료, 돈 때문에 포기하지 마세요.<br/>프리미엄 3종 플랜으로 완벽 대비.</p>
+                    <div className="flex flex-wrap gap-4 text-sm md:text-lg text-slate-400">
+                      <span className="flex items-center gap-1.5"><CheckCircle size={20} className="text-green-500"/> 표적항암</span>
+                      <span className="flex items-center gap-1.5"><CheckCircle size={20} className="text-green-500"/> 로봇수술</span>
+                      <span className="flex items-center gap-1.5"><CheckCircle size={20} className="text-green-500"/> 중입자치료</span>
                     </div>
-                    <div class="solution-content">
-                        <h3>표적/면역 항암</h3>
-                        <p>암세포만 정밀 타격하여<br>부작용을 최소화합니다</p>
-                    </div>
-                </div>
-                <div class="solution-item scroll-reveal" data-delay="200">
-                    <div class="step-number">02</div>
-                    <div class="solution-icon">
-                        <i class="fa-solid fa-robot"></i>
-                    </div>
-                    <div class="solution-content">
-                        <h3>다빈치 로봇 수술</h3>
-                        <p>흉터는 작게, 회복은 빠르게<br>고가의 수술비 해결</p>
-                    </div>
-                </div>
-                <div class="solution-item scroll-reveal" data-delay="300">
-                    <div class="step-number">03</div>
-                    <div class="solution-icon">
-                        <i class="fa-solid fa-atom"></i>
-                    </div>
-                    <div class="solution-content">
-                        <h3>방사선 치료</h3>
-                        <p>꿈의 암 치료기라 불리는<br>중입자/양성자 치료 포함</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                  </div>
 
-    <!-- Section 4. Consultation -->
-    <section id="consultation" class="consultation-section">
-        <div class="bg-pattern"></div>
-        <div class="container">
-            <div class="form-wrapper scroll-reveal">
-                <div class="form-header">
-                    <span class="form-badge">무료 상담</span>
-                    <h2>전문가 1:1 맞춤 플랜</h2>
-                    <p>지금 신청하시면 <span class="highlight-gold">최신 암 치료 가이드북</span>을 드립니다.</p>
+                  {/* Calculator Widget */}
+                  <div className="bg-white text-slate-800 p-8 rounded-2xl shadow-2xl z-10">
+                    <h3 className="text-2xl font-bold mb-2 text-center">내 보험료 1분 조회</h3>
+                    <p className="text-sm text-slate-500 text-center mb-6">나이, 성별만 입력하면 즉시 확인!</p>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      <input type="text" placeholder="생년월일 (예: 850101)" className="w-full px-5 py-3.5 rounded-lg border border-slate-300 bg-slate-50 focus:border-orange-500 outline-none text-base font-medium"/>
+                      <div className="flex gap-2">
+                        <label className="flex-1"><input type="radio" name="g" className="peer sr-only" defaultChecked/><div className="py-3.5 text-center border rounded-lg peer-checked:bg-slate-900 peer-checked:text-white text-base cursor-pointer font-medium">남성</div></label>
+                        <label className="flex-1"><input type="radio" name="g" className="peer sr-only"/><div className="py-3.5 text-center border rounded-lg peer-checked:bg-slate-900 peer-checked:text-white text-base cursor-pointer font-medium">여성</div></label>
+                      </div>
+                      <input type="tel" placeholder="휴대폰 번호" className="w-full px-5 py-3.5 rounded-lg border border-slate-300 bg-slate-50 focus:border-orange-500 outline-none text-base font-medium"/>
+                      <button type="submit" className="w-full bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-orange-700 transition text-lg">무료 견적 1분 안에 받기 &gt;</button>
+                    </form>
+                  </div>
                 </div>
-                <form id="consultForm">
-                    <div class="form-group floating-label">
-                        <input type="text" id="name" required placeholder=" ">
-                        <label for="name">이름</label>
-                    </div>
-                    <div class="form-group floating-label">
-                        <input type="tel" id="phone" required placeholder=" ">
-                        <label for="phone">연락처 (010-0000-0000)</label>
-                    </div>
-                    <div class="form-group floating-label">
-                        <input type="text" id="birth" required placeholder=" ">
-                        <label for="birth">생년월일 (예: 801231)</label>
-                    </div>
-                    
-                    <div class="privacy-agreement">
-                        <label class="checkbox-label">
-                            <input type="checkbox" checked required>
-                            <span class="checkbox-custom"></span>
-                            <span class="label-text">개인정보 수집 및 이용 동의 (필수)</span>
-                        </label>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary btn-block submit-btn">
-                        <span>무료 견적 받기</span>
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </form>
+              </section>
+
+              {/* Real-time Status Section (Vertical Scroll) */}
+              <section className="py-12 bg-slate-50 border-b border-slate-200">
+                  <div className="container mx-auto px-4">
+                      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden border border-slate-100">
+                          <div className="bg-slate-900 px-8 py-5 flex justify-between items-center">
+                              <h3 className="text-white font-bold flex items-center gap-3 text-xl md:text-2xl">
+                                  <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
+                                  실시간 상담 신청 현황
+                              </h3>
+                              <span className="text-slate-400 text-sm font-medium">현재 접속자 폭주 중</span>
+                          </div>
+                          <div className="h-80 overflow-hidden relative bg-white">
+                              <div className="animate-scroll-up">
+                                  {[...applicants, ...applicants].map((item, idx) => (
+                                      <div key={idx} className="px-8 py-4 border-b border-slate-50 flex justify-between items-center hover:bg-slate-50 transition">
+                                          <div className="flex items-center gap-4 md:gap-8">
+                                              <div className="flex items-center gap-3">
+                                                  <span className="font-bold text-slate-800 text-lg">{item.name}</span>
+                                                  <span className="text-slate-500 text-base">({item.age}세)</span>
+                                              </div>
+                                              <span className="text-slate-400 text-sm hidden md:inline-block">{item.phone}</span>
+                                          </div>
+                                          <div className="flex items-center gap-3">
+                                              <span className="text-sm text-slate-500 font-medium">{item.time}</span>
+                                              <span className="text-orange-600 font-bold text-sm bg-orange-50 border border-orange-100 px-3 py-1 rounded">신청완료</span>
+                                          </div>
+                                      </div>
+                                  ))}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </section>
+
+              {/* 3. Problem Section */}
+              <section className="py-16 bg-slate-50">
+                <div className="container mx-auto px-4 text-center">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-10">암, 이제 죽는 병이 아니라 <br/><span className="text-red-600 border-b-4 border-red-200">돈이 드는 병</span>입니다.</h2>
+                  <div className="grid md:grid-cols-3 gap-6">
+                    {[
+                      { t: '중입자 치료', c: '약 5,000만원', d: '건강보험 미적용' },
+                      { t: '표적 항암제', c: '월 400만원~', d: '지속 투여 필요' },
+                      { t: '다빈치 로봇수술', c: '약 1,500만원', d: '비급여 수술비' },
+                    ].map((i, idx) => (
+                      <div key={idx} className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <div className="font-bold mb-1">{i.t}</div>
+                        <div className="text-2xl font-extrabold text-slate-900 mb-1">{i.c}</div>
+                        <div className="text-sm text-slate-500">{i.d}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* 4. Solution Section */}
+              <section className="py-16 bg-white">
+                <div className="container mx-auto px-4">
+                  <div className="text-center mb-12">
+                    <h2 className="text-2xl md:text-3xl font-bold">오직 회복에만 집중하세요<br/>커넥션랩스 <span className="text-orange-600">프리미엄 3종 플랜</span></h2>
+                  </div>
+                  <div className="grid md:grid-cols-3 gap-8">
+                     {[
+                       { Icon: Microscope, t: '1. 항암 방사선 약물', d: '표적/면역 항암제 치료 시 고액 약제비 보장' },
+                       { Icon: Activity, t: '2. 다빈치 로봇 수술', d: '정교한 로봇 수술로 부작용 최소화' },
+                       { Icon: Shield, t: '3. 중입자/양성자 치료', d: '꿈의 암 치료기 비용까지 든든하게 준비' }
+                     ].map((item, idx) => (
+                       <div key={idx} className="text-center p-6 border rounded-2xl border-slate-100 hover:shadow-lg transition">
+                          <div className="w-14 h-14 mx-auto bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-4">
+                            <item.Icon size={28} />
+                          </div>
+                          <h3 className="text-lg font-bold mb-2">{item.t}</h3>
+                          <p className="text-slate-600 text-sm break-keep">{item.d}</p>
+                       </div>
+                     ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* 5. Final CTA Section (Form) */}
+              <section id="consultation-form" className="py-20 bg-slate-900 text-white">
+                  <div className="container mx-auto px-4 max-w-4xl text-center">
+                      <h2 className="text-3xl md:text-5xl font-bold mb-6">
+                          아직도 고민 중이신가요?<br />
+                          <span className="text-orange-500">무료 견적</span>으로 부담 없이 확인하세요.
+                      </h2>
+                      <p className="text-slate-300 mb-10 text-lg">전문 상담원이 고객님께 꼭 맞는 최적의 플랜을 안내해 드립니다.</p>
+                      
+                      <div className="bg-white text-slate-800 p-8 rounded-2xl shadow-2xl max-w-lg mx-auto text-left">
+                        <h3 className="text-2xl font-bold mb-2 text-center">내 보험료 1분 조회</h3>
+                        <p className="text-sm text-slate-500 text-center mb-6">나이, 성별만 입력하면 즉시 확인!</p>
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                          <input type="text" placeholder="생년월일 (예: 850101)" className="w-full px-5 py-3.5 rounded-lg border border-slate-300 bg-slate-50 focus:border-orange-500 outline-none text-base font-medium"/>
+                          <div className="flex gap-2">
+                            <label className="flex-1"><input type="radio" name="g2" className="peer sr-only" defaultChecked/><div className="py-3.5 text-center border rounded-lg peer-checked:bg-slate-900 peer-checked:text-white text-base cursor-pointer font-medium">남성</div></label>
+                            <label className="flex-1"><input type="radio" name="g2" className="peer sr-only"/><div className="py-3.5 text-center border rounded-lg peer-checked:bg-slate-900 peer-checked:text-white text-base cursor-pointer font-medium">여성</div></label>
+                          </div>
+                          <input type="tel" placeholder="휴대폰 번호" className="w-full px-5 py-3.5 rounded-lg border border-slate-300 bg-slate-50 focus:border-orange-500 outline-none text-base font-medium"/>
+                          <button type="submit" className="w-full bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-orange-700 transition text-lg">무료 견적 1분 안에 받기 &gt;</button>
+                        </form>
+                      </div>
+                  </div>
+              </section>
+
+              {/* 7. Legal Footer */}
+              <footer className="bg-slate-100 text-slate-500 py-10 pb-24 md:pb-10 text-xs leading-relaxed break-keep">
+                  <div className="container mx-auto px-4">
+                      <h4 className="font-bold mb-3 text-slate-700">꼭 알아두실 사항</h4>
+                      <ul className="space-y-1.5 mb-8 border-b border-slate-200 pb-8">
+                          <li>※ 보험계약자가 기존 보험계약을 해지하고 새로운 보험계약을 체결하는 과정에서<br/>
+                              <span className="pl-2 inline-block">① 질병이력, 연령증가 등으로 가입이 거절되거나 보험료가 인상될 수 있습니다.</span><br/>
+                              <span className="pl-2 inline-block">② 가입 상품에 따라 새로운 면책기간 적용 및 보장 제한 등 기타 불이익이 발생할 수 있습니다.</span>
+                          </li>
+                          <li className="mt-2">※ 본 광고는 손해보험협회 심의기준을 준수하였으며, 유효기간은 심의일로부터 1년입니다.</li>
+                          <li>※ 상기 내용은 ㈜어센틱금융그룹의 의견이며, 계약체결에 따른 이익 또는 손실은 보험계약자 등에게 귀속됩니다.</li>
+                      </ul>
+                      
+                      <div className="space-y-1">
+                          <p className="font-bold text-slate-700">㈜어센틱금융그룹 (보험대리점협회 등록번호 0000000000)</p>
+                          <p>㈜어센틱금융그룹 준법감시인 심의필 제000000-광고-000호(2025-00-00~2026-0000)</p>
+                          <p>광고대행사 : 커넥션랩스은/는 페이지 제작 및 광고 대행만을 진행하며, 보험상품 판매에 직접적인 관여를 하지 않습니다.</p>
+                          <p className="mt-4">사업자등록번호 : 691-04-03233 │ 대표 : 이민호</p>
+                          <p className="text-slate-400 mt-2">Copyright (c) 커넥션랩스 All rights reserved.</p>
+                      </div>
+                  </div>
+              </footer>
+
+              {/* 6. Sticky Footer (Mobile Only) */}
+              <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 md:hidden z-50 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+                <button
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="w-full bg-slate-900 text-white font-bold py-3.5 rounded-lg text-lg"
+                >
+                  내 보험료 1분 조회하기
+                </button>
+              </div>
             </div>
-        </div>
-    </section>
+          );
+        };
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <p class="copyright">Copyright © 2024 Premium Plan. All rights reserved.</p>
-                <p class="disclaimer">본 페이지는 보험상품 광고가 아닌 상담 신청을 위한 랜딩페이지입니다.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Sticky CTA (Mobile) -->
-    <div class="sticky-cta">
-        <a href="#consultation" class="btn btn-primary btn-block">
-            <span class="cta-text">내 보험료 확인하기</span>
-            <i class="fa-solid fa-arrow-right"></i>
-        </a>
-    </div>
-
-    <!-- Script -->
-    <script src="js/script.js"></script>
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<LandingPage />);
+    </script>
 </body>
 </html>
