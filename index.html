@@ -124,12 +124,49 @@
                     <h3 className="text-2xl font-bold mb-2 text-center">내 보험료 1분 조회</h3>
                     <p className="text-sm text-slate-500 text-center mb-6">나이, 성별만 입력하면 즉시 확인!</p>
                     <form onSubmit={handleSubmit} className="space-y-4">
-                      <input type="text" placeholder="생년월일 (예: 850101)" className="w-full px-5 py-3.5 rounded-lg border border-slate-300 bg-slate-50 focus:border-orange-500 outline-none text-base font-medium"/>
+                      <input 
+                        type="text" 
+                        placeholder="이름" 
+                        className="w-full px-5 py-3.5 rounded-lg border border-slate-300 bg-slate-50 focus:border-orange-500 outline-none text-base font-medium"
+                        value={formData.name}
+                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      />
+                      <input 
+                        type="text" 
+                        placeholder="생년월일 (예: 850101)" 
+                        className="w-full px-5 py-3.5 rounded-lg border border-slate-300 bg-slate-50 focus:border-orange-500 outline-none text-base font-medium"
+                        value={formData.birth}
+                        onChange={(e) => setFormData({...formData, birth: e.target.value})}
+                      />
                       <div className="flex gap-2">
-                        <label className="flex-1"><input type="radio" name="g" className="peer sr-only" defaultChecked/><div className="py-3.5 text-center border rounded-lg peer-checked:bg-slate-900 peer-checked:text-white text-base cursor-pointer font-medium">남성</div></label>
-                        <label className="flex-1"><input type="radio" name="g" className="peer sr-only"/><div className="py-3.5 text-center border rounded-lg peer-checked:bg-slate-900 peer-checked:text-white text-base cursor-pointer font-medium">여성</div></label>
+                        <label className="flex-1">
+                          <input 
+                            type="radio" 
+                            name="gender_hero" 
+                            className="peer sr-only" 
+                            checked={formData.gender === 'male'} 
+                            onChange={() => setFormData({...formData, gender: 'male'})}
+                          />
+                          <div className="py-3.5 text-center border rounded-lg peer-checked:bg-slate-900 peer-checked:text-white text-base cursor-pointer font-medium">남성</div>
+                        </label>
+                        <label className="flex-1">
+                          <input 
+                            type="radio" 
+                            name="gender_hero" 
+                            className="peer sr-only" 
+                            checked={formData.gender === 'female'} 
+                            onChange={() => setFormData({...formData, gender: 'female'})}
+                          />
+                          <div className="py-3.5 text-center border rounded-lg peer-checked:bg-slate-900 peer-checked:text-white text-base cursor-pointer font-medium">여성</div>
+                        </label>
                       </div>
-                      <input type="tel" placeholder="휴대폰 번호" className="w-full px-5 py-3.5 rounded-lg border border-slate-300 bg-slate-50 focus:border-orange-500 outline-none text-base font-medium"/>
+                      <input 
+                        type="tel" 
+                        placeholder="휴대폰 번호" 
+                        className="w-full px-5 py-3.5 rounded-lg border border-slate-300 bg-slate-50 focus:border-orange-500 outline-none text-base font-medium"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      />
                       <button type="submit" className="w-full bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-orange-700 transition text-lg">무료 견적 1분 안에 받기 &gt;</button>
                     </form>
                   </div>
